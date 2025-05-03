@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react"
 import Link from "next/link"
+import Image from "next/image"
 import { Menu, X } from "lucide-react"
 import { Button } from "@/components/ui/button"
 
@@ -25,46 +26,64 @@ export default function Header() {
   }, [])
 
   return (
-    <header
-      className={`fixed top-0 w-full z-50 transition-all duration-300 ${
-        isScrolled ? "bg-black/70 backdrop-blur-md py-2" : "bg-transparent py-4"
-      }`}
-    >
-      <div className="container mx-auto px-4 flex justify-between items-center">
-        <Link href="/" className="flex items-center">
-          <span className="text-2xl font-bold text-white">Aeronorth</span>
-        </Link>
+    <header className={`fixed top-0 w-full z-50 transition-all duration-300 ${isScrolled ? "py-3" : "py-6"}`}>
+      {/* Add extra padding at the top to accommodate the lower logo */}
+      <div className="pt-10">
+        <div className="container mx-auto flex items-center justify-between relative">
+          {/* Logo positioned absolutely and moved down more */}
+          <div className="absolute left-0 top-[100%] transform -translate-y-1/2">
+            <Link href="/" className="flex items-center">
+              <div className="relative h-48 w-[30rem]">
+                <Image
+                  src="/images/aeronorth-logo.svg"
+                  alt="Aeronorth Logo"
+                  fill
+                  className="object-contain object-left"
+                  priority
+                />
+              </div>
+            </Link>
+          </div>
 
-        {/* Desktop Navigation */}
-        <nav className="hidden md:flex space-x-8">
-          <Link href="#about" className="text-white hover:text-white/80 font-medium">
-            About
-          </Link>
-          <Link href="#services" className="text-white hover:text-white/80 font-medium">
-            Services
-          </Link>
-          <Link href="#projects" className="text-white hover:text-white/80 font-medium">
-            Projects
-          </Link>
-          <Link href="#regulations" className="text-white hover:text-white/80 font-medium">
-            Regulations
-          </Link>
-          <Link href="#contact" className="text-white hover:text-white/80 font-medium">
-            Contact
-          </Link>
-        </nav>
+          {/* Navigation - moved to the left */}
+          <div className="hidden md:flex justify-center w-full">
+            <nav className="flex space-x-8 ml-[15%]">
+              <Link href="#about" className="text-white hover:text-white/80 font-medium text-shadow">
+                About
+              </Link>
+              <Link href="#services" className="text-white hover:text-white/80 font-medium text-shadow">
+                Services
+              </Link>
+              <Link href="#projects" className="text-white hover:text-white/80 font-medium text-shadow">
+                Projects
+              </Link>
+              <Link href="#regulations" className="text-white hover:text-white/80 font-medium text-shadow">
+                Regulations
+              </Link>
+              <Link href="#contact" className="text-white hover:text-white/80 font-medium text-shadow">
+                Contact
+              </Link>
+            </nav>
+          </div>
 
-        <Button className="hidden md:block bg-white/10 hover:bg-white/20 text-white border border-white/20">
-          Get a Quote
-        </Button>
+          {/* Get a Quote Button with updated border */}
+          <div className="z-10 mr-[5%]">
+            <Button
+              variant="outline"
+              className="hidden md:block bg-white/10 hover:bg-white/20 text-white border-2 border-white"
+            >
+              Get a Quote
+            </Button>
 
-        {/* Mobile Menu Button */}
-        <button className="md:hidden text-white" onClick={() => setIsOpen(!isOpen)}>
-          {isOpen ? <X size={24} /> : <Menu size={24} />}
-        </button>
+            {/* Mobile Menu Button */}
+            <button className="md:hidden text-white" onClick={() => setIsOpen(!isOpen)}>
+              {isOpen ? <X size={24} /> : <Menu size={24} />}
+            </button>
+          </div>
+        </div>
       </div>
 
-      {/* Mobile Navigation */}
+      {/* Mobile Navigation (unchanged) */}
       {isOpen && (
         <div className="md:hidden bg-black/90 backdrop-blur-md">
           <div className="container mx-auto px-4 py-4 flex flex-col space-y-4">
@@ -99,7 +118,7 @@ export default function Header() {
             >
               Contact
             </Link>
-            <Button className="w-full bg-white/10 hover:bg-white/20 text-white border border-white/20">
+            <Button variant="outline" className="w-full bg-white/10 hover:bg-white/20 text-white border-2 border-white">
               Get a Quote
             </Button>
           </div>
