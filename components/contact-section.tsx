@@ -8,7 +8,6 @@ import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Phone, Mail, MapPin, Send } from "lucide-react"
-import TopoImageBackground from "./topo-image-background"
 
 export default function ContactSection() {
   const [formData, setFormData] = useState({
@@ -51,12 +50,8 @@ export default function ContactSection() {
   }
 
   return (
-    <TopoImageBackground
-      className="py-24 bg-gradient-to-b from-slate-900 to-black"
-      imageType="contour"
-      overlayOpacity={90}
-    >
-      <div id="contact" className="container mx-auto px-4">
+    <div id="contact" className="py-24 w-full">
+      <div className="container mx-auto px-4">
         <div className="text-center mb-16">
           <h2 className="text-3xl md:text-4xl font-bold mb-4 text-white">Contact Us</h2>
           <p className="text-white max-w-3xl mx-auto">
@@ -76,7 +71,7 @@ export default function ContactSection() {
 
             <div className="space-y-6">
               <div className="flex items-start">
-                <div className="bg-white/10 backdrop-blur-sm p-3 rounded-full mr-4 border border-white/20">
+                <div className="bg-black bg-opacity-50 backdrop-blur-sm p-3 rounded-full mr-4 border border-white/20">
                   <Phone className="h-6 w-6 text-white" />
                 </div>
                 <div>
@@ -86,7 +81,7 @@ export default function ContactSection() {
               </div>
 
               <div className="flex items-start">
-                <div className="bg-white/10 backdrop-blur-sm p-3 rounded-full mr-4 border border-white/20">
+                <div className="bg-black bg-opacity-50 backdrop-blur-sm p-3 rounded-full mr-4 border border-white/20">
                   <Mail className="h-6 w-6 text-white" />
                 </div>
                 <div>
@@ -96,7 +91,7 @@ export default function ContactSection() {
               </div>
 
               <div className="flex items-start">
-                <div className="bg-white/10 backdrop-blur-sm p-3 rounded-full mr-4 border border-white/20">
+                <div className="bg-black bg-opacity-50 backdrop-blur-sm p-3 rounded-full mr-4 border border-white/20">
                   <MapPin className="h-6 w-6 text-white" />
                 </div>
                 <div>
@@ -115,22 +110,22 @@ export default function ContactSection() {
             <div className="mt-12">
               <h3 className="text-2xl font-bold mb-6 text-white">Service Areas</h3>
               <div className="grid grid-cols-2 gap-4">
-                <div className="bg-white/10 backdrop-blur-sm p-4 rounded-lg border border-white/20">
+                <div className="bg-black bg-opacity-50 backdrop-blur-sm p-4 rounded-lg border border-white/20">
                   <p className="font-medium text-white">British Columbia</p>
                 </div>
-                <div className="bg-white/10 backdrop-blur-sm p-4 rounded-lg border border-white/20">
+                <div className="bg-black bg-opacity-50 backdrop-blur-sm p-4 rounded-lg border border-white/20">
                   <p className="font-medium text-white">Alberta</p>
                 </div>
-                <div className="bg-white/10 backdrop-blur-sm p-4 rounded-lg border border-white/20">
+                <div className="bg-black bg-opacity-50 backdrop-blur-sm p-4 rounded-lg border border-white/20">
                   <p className="font-medium text-white">Saskatchewan</p>
                 </div>
-                <div className="bg-white/10 backdrop-blur-sm p-4 rounded-lg border border-white/20">
+                <div className="bg-black bg-opacity-50 backdrop-blur-sm p-4 rounded-lg border border-white/20">
                   <p className="font-medium text-white">Manitoba</p>
                 </div>
-                <div className="bg-white/10 backdrop-blur-sm p-4 rounded-lg border border-white/20">
+                <div className="bg-black bg-opacity-50 backdrop-blur-sm p-4 rounded-lg border border-white/20">
                   <p className="font-medium text-white">Yukon</p>
                 </div>
-                <div className="bg-white/10 backdrop-blur-sm p-4 rounded-lg border border-white/20">
+                <div className="bg-black bg-opacity-50 backdrop-blur-sm p-4 rounded-lg border border-white/20">
                   <p className="font-medium text-white">Northwest Territories</p>
                 </div>
               </div>
@@ -138,7 +133,7 @@ export default function ContactSection() {
           </div>
 
           <div>
-            <Card className="bg-white/10 backdrop-blur-sm border border-white/20">
+            <Card className="bg-black bg-opacity-50 backdrop-blur-sm border border-white/20">
               <CardHeader>
                 <CardTitle className="text-2xl font-bold text-white">Send Us a Message</CardTitle>
                 <CardDescription className="text-white/70">
@@ -147,7 +142,7 @@ export default function ContactSection() {
               </CardHeader>
               <CardContent>
                 {isSubmitted ? (
-                  <div className="bg-white/10 border border-white/30 text-white p-4 rounded-lg flex items-center">
+                  <div className="bg-black bg-opacity-50 border border-white/30 text-white p-4 rounded-lg flex items-center">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       className="h-5 w-5 mr-2"
@@ -176,7 +171,7 @@ export default function ContactSection() {
                           onChange={handleChange}
                           placeholder="John Doe"
                           required
-                          className="bg-white/5 border-white/20 text-white placeholder:text-white/40"
+                          className="bg-black/30 border-white/20 text-white placeholder:text-white/40"
                         />
                       </div>
                       <div className="space-y-2">
@@ -191,7 +186,7 @@ export default function ContactSection() {
                           onChange={handleChange}
                           placeholder="john@example.com"
                           required
-                          className="bg-white/5 border-white/20 text-white placeholder:text-white/40"
+                          className="bg-black/30 border-white/20 text-white placeholder:text-white/40"
                         />
                       </div>
                     </div>
@@ -207,7 +202,7 @@ export default function ContactSection() {
                           value={formData.phone}
                           onChange={handleChange}
                           placeholder="(250) 555-1234"
-                          className="bg-white/5 border-white/20 text-white placeholder:text-white/40"
+                          className="bg-black/30 border-white/20 text-white placeholder:text-white/40"
                         />
                       </div>
                       <div className="space-y-2">
@@ -220,7 +215,7 @@ export default function ContactSection() {
                           value={formData.company}
                           onChange={handleChange}
                           placeholder="Your Company"
-                          className="bg-white/5 border-white/20 text-white placeholder:text-white/40"
+                          className="bg-black/30 border-white/20 text-white placeholder:text-white/40"
                         />
                       </div>
                     </div>
@@ -237,7 +232,7 @@ export default function ContactSection() {
                         placeholder="Tell us about your project and requirements..."
                         rows={5}
                         required
-                        className="bg-white/5 border-white/20 text-white placeholder:text-white/40"
+                        className="bg-black/30 border-white/20 text-white placeholder:text-white/40"
                       />
                     </div>
 
@@ -283,6 +278,6 @@ export default function ContactSection() {
           </div>
         </div>
       </div>
-    </TopoImageBackground>
+    </div>
   )
 }
