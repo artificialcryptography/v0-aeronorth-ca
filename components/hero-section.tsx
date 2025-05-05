@@ -47,7 +47,7 @@ export default function HeroSection() {
       {/* Background Image (fallback) */}
       <div className="absolute inset-0">
         <Image
-          src="/images/heroSection1.png"
+          src="/public/images/heroSection1.png"
           alt="Aerial view of mountains"
           fill
           priority
@@ -64,11 +64,11 @@ export default function HeroSection() {
           muted
           playsInline
           loop
-          poster="/images/heroSection1.png"
+          poster="/public/images/heroSection1.png"
           crossOrigin="anonymous"
         >
           {/* Using direct Vercel Blob URL instead of relative path */}
-          <source src="/public/droneMountain.mp4" type="video/mp4" />
+          <source src="/droneMountain.mp4" type="video/mp4" />
         </video>
       </div>
 

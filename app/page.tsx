@@ -1,10 +1,10 @@
-import HeroSection from "@/components/hero-section"
-import AboutSection from "@/components/about-section"
-import ServicesSection from "@/components/services-section"
-import ProjectsSection from "@/components/projects-section"
-import ContactSection from "@/components/contact-section"
-import RegulationsSection from "@/components/regulations-section"
-import ContinuousBackground from "@/components/continuous-background"
+import HeroSection from "@/components/hero-section";
+import AboutSection from "@/components/about-section";
+import ServicesSection from "@/components/services-sectionTest";
+import ProjectsSection from "@/components/projects-section";
+import ContactSection from "@/components/contact-section";
+import RegulationsSection from "@/components/regulations-section";
+import ContinuousBackground from "@/components/continuous-background";
 
 export default function Home() {
   return (
@@ -33,5 +33,5 @@ export default function Home() {
         </section>
       </main>
     </ContinuousBackground>
-  )
+  );
 }
