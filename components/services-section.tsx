@@ -77,7 +77,7 @@ export default function ServicesSection() {
               <TabsTrigger
                 key={service.id}
                 value={service.id}
-                className="bg-black bg-opacity-50 border border-white text-white hover:bg-white/20 data-[state=active]:bg-white/20 data-[state=active]:text-white data-[state=active]:shadow-none rounded-md px-4 py-2 h-auto"
+                className="bg-black bg-opacity-70 border border-white text-white hover:bg-white/20 data-[state=active]:bg-white/20 data-[state=active]:text-white data-[state=active]:shadow-none rounded-md px-4 py-2 h-auto"
               >
                 {service.title}
               </TabsTrigger>
@@ -87,7 +87,7 @@ export default function ServicesSection() {
           {services.map((service) => (
             <TabsContent key={service.id} value={service.id}>
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-                <Card className="bg-black bg-opacity-50 backdrop-blur-sm overflow-hidden border border-white/20">
+                <Card className="bg-black bg-opacity-70 backdrop-blur-sm overflow-hidden border border-white/20">
                   <div className="relative h-[300px]">
                     <Image
                       src={
@@ -103,7 +103,7 @@ export default function ServicesSection() {
                   </div>
                 </Card>
 
-                <CardContent className="flex flex-col justify-center p-6 bg-black bg-opacity-50 backdrop-blur-sm rounded-lg border border-white/20">
+                <CardContent className="flex flex-col justify-center p-6 bg-black bg-opacity-70 backdrop-blur-sm rounded-lg border border-white/20">
                   <div className="mb-4">{service.icon}</div>
                   <h3 className="text-2xl font-bold mb-4 text-white">{service.title}</h3>
                   <p className="text-white mb-6">{service.description}</p>

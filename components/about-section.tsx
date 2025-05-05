@@ -20,19 +20,19 @@ export default function AboutSection() {
           </p>
 
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-            <div className="bg-black bg-opacity-50 backdrop-blur-sm p-6 rounded-lg border border-white border-opacity-20">
+            <div className="bg-black bg-opacity-70 backdrop-blur-sm p-6 rounded-lg border border-white border-opacity-20">
               <h4 className="font-bold text-xl mb-2 text-white">200+</h4>
               <p className="text-white">Projects Completed</p>
             </div>
-            <div className="bg-black bg-opacity-50 backdrop-blur-sm p-6 rounded-lg border border-white border-opacity-20">
+            <div className="bg-black bg-opacity-70 backdrop-blur-sm p-6 rounded-lg border border-white border-opacity-20">
               <h4 className="font-bold text-xl mb-2 text-white">98%</h4>
               <p className="text-white">Client Satisfaction</p>
             </div>
-            <div className="bg-black bg-opacity-50 backdrop-blur-sm p-6 rounded-lg border border-white border-opacity-20">
+            <div className="bg-black bg-opacity-70 backdrop-blur-sm p-6 rounded-lg border border-white border-opacity-20">
               <h4 className="font-bold text-xl mb-2 text-white">15+</h4>
               <p className="text-white">Industry Experts</p>
             </div>
-            <div className="bg-black bg-opacity-50 backdrop-blur-sm p-6 rounded-lg border border-white border-opacity-20">
+            <div className="bg-black bg-opacity-70 backdrop-blur-sm p-6 rounded-lg border border-white border-opacity-20">
               <h4 className="font-bold text-xl mb-2 text-white">5</h4>
               <p className="text-white">Years of Excellence</p>
             </div>

@@ -95,35 +95,35 @@ export default function ProjectsSection() {
           <Button
             variant="outline"
             onClick={() => setFilter("all")}
-            className={`${filter === "all" ? "bg-white/20" : "bg-black/50"} text-white border-white hover:bg-white/20`}
+            className={`${filter === "all" ? "bg-white/20" : "bg-black/70"} text-white border-white hover:bg-white/20`}
           >
             All Projects
           </Button>
           <Button
             variant="outline"
             onClick={() => setFilter("construction")}
-            className={`${filter === "construction" ? "bg-white/20" : "bg-black/50"} text-white border-white hover:bg-white/20`}
+            className={`${filter === "construction" ? "bg-white/20" : "bg-black/70"} text-white border-white hover:bg-white/20`}
           >
             Construction
           </Button>
           <Button
             variant="outline"
             onClick={() => setFilter("environmental")}
-            className={`${filter === "environmental" ? "bg-white/20" : "bg-black/50"} text-white border-white hover:bg-white/20`}
+            className={`${filter === "environmental" ? "bg-white/20" : "bg-black/70"} text-white border-white hover:bg-white/20`}
           >
             Environmental
           </Button>
           <Button
             variant="outline"
             onClick={() => setFilter("mining")}
-            className={`${filter === "mining" ? "bg-white/20" : "bg-black/50"} text-white border-white hover:bg-white/20`}
+            className={`${filter === "mining" ? "bg-white/20" : "bg-black/70"} text-white border-white hover:bg-white/20`}
           >
             Mining
           </Button>
           <Button
             variant="outline"
             onClick={() => setFilter("inspection")}
-            className={`${filter === "inspection" ? "bg-white/20" : "bg-black/50"} text-white border-white hover:bg-white/20`}
+            className={`${filter === "inspection" ? "bg-white/20" : "bg-black/70"} text-white border-white hover:bg-white/20`}
           >
             Inspection
           </Button>
@@ -133,7 +133,7 @@ export default function ProjectsSection() {
           {filteredProjects.map((project) => (
             <Dialog key={project.id}>
               <DialogTrigger asChild>
-                <Card className="bg-black bg-opacity-50 backdrop-blur-sm overflow-hidden cursor-pointer hover:shadow-lg transition-shadow duration-300 border border-white/20">
+                <Card className="bg-black bg-opacity-70 backdrop-blur-sm overflow-hidden cursor-pointer hover:shadow-lg transition-shadow duration-300 border border-white/20">
                   <div className="relative h-64 w-full">
                     <Image
                       src={project.image || "/placeholder.svg"}
@@ -142,7 +142,7 @@ export default function ProjectsSection() {
                       className="object-cover"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-slate-900/70 to-transparent"></div>
-                    <div className="absolute top-4 right-4 bg-black/50 backdrop-blur-sm text-white text-xs font-bold px-3 py-1 rounded-full border border-white/30">
+                    <div className="absolute top-4 right-4 bg-black/70 backdrop-blur-sm text-white text-xs font-bold px-3 py-1 rounded-full border border-white/30">
                       {project.category.charAt(0).toUpperCase() + project.category.slice(1)}
                     </div>
                   </div>

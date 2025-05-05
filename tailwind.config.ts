@@ -19,6 +19,9 @@ const config = {
       },
     },
     extend: {
+      spacing: {
+        "4vh": "4vh",
+      },
       colors: {
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",

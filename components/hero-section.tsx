@@ -1,41 +1,50 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import { useState, useEffect, useRef } from "react"
 import { ChevronLeft, ChevronRight } from "lucide-react"
-import Image from "next/image"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
 
-interface VideoSlide {
+interface Slide {
   id: number
+  type: "image" | "video"
   src: string
   title: string
   description: string
+  poster: string
 }
 
 export default function HeroSection() {
-  const slides: VideoSlide[] = [
+  const slides: Slide[] = [
     {
       id: 1,
-      src: "/images/drone-hero.jpg",
+      type: "video",
+      src: "/videos/drone-mountain.mp4",
       title: "Aerial Excellence",
       description: "Precision drone surveys for construction and resource management",
+      poster: "/images/drone-hero.jpg",
     },
     {
       id: 2,
-      src: "/images/forest-road.jpg",
+      type: "video",
+      src: "/videos/drone-cliff.mp4",
       title: "Advanced Mapping",
       description: "High-resolution aerial mapping and 3D modeling",
+      poster: "/images/forest-road.jpg",
     },
     {
       id: 3,
-      src: "/images/forest-clearing.jpg",
+      type: "video",
+      src: "/videos/drone-waterfall.mp4",
       title: "Environmental Insights",
       description: "Specialized imaging for environmental monitoring and assessment",
+      poster: "/images/forest-clearing.jpg",
     },
   ]
 
   const [currentSlide, setCurrentSlide] = useState(0)
+  const videoRefs = useRef<HTMLVideoElement[]>([])
+  const intervalRef = useRef<NodeJS.Timeout | null>(null)
 
   const nextSlide = () => {
     setCurrentSlide((prev) => (prev === slides.length - 1 ? 0 : prev + 1))
@@ -45,33 +54,99 @@ export default function HeroSection() {
     setCurrentSlide((prev) => (prev === 0 ? slides.length - 1 : prev - 1))
   }
 
-  useEffect(() => {
-    const interval = setInterval(() => {
-      nextSlide()
-    }, 8000)
+  // Reset and restart the auto-advance timer when manually changing slides
+  const resetInterval = () => {
+    if (intervalRef.current) {
+      clearInterval(intervalRef.current)
+    }
 
-    return () => clearInterval(interval)
+    intervalRef.current = setInterval(() => {
+      nextSlide()
+    }, 12000)
+  }
+
+  // Handle manual slide navigation
+  const handleSlideChange = (index: number) => {
+    setCurrentSlide(index)
+    resetInterval()
+  }
+
+  // Handle video playback when slide changes
+  useEffect(() => {
+    // Pause all videos
+    videoRefs.current.forEach((video) => {
+      if (video) {
+        video.pause()
+      }
+    })
+
+    // Play the current video if it exists
+    const currentVideo = videoRefs.current[currentSlide]
+    if (currentVideo) {
+      // Reset to beginning
+      currentVideo.currentTime = 0
+
+      // Play with a slight delay to ensure DOM is ready
+      setTimeout(() => {
+        const playPromise = currentVideo.play()
+
+        if (playPromise !== undefined) {
+          playPromise.catch(() => {
+            // Silent catch for autoplay restrictions
+            console.log("Autoplay prevented by browser. User interaction required.")
+          })
+        }
+      }, 50)
+    }
+  }, [currentSlide])
+
+  // Auto-advance slides
+  useEffect(() => {
+    // Initialize the interval
+    intervalRef.current = setInterval(() => {
+      nextSlide()
+    }, 12000)
+
+    // Cleanup on unmount
+    return () => {
+      if (intervalRef.current) {
+        clearInterval(intervalRef.current)
+      }
+    }
   }, [])
 
   return (
     <div className="relative w-full h-screen overflow-hidden">
-      {/* Video/Image Slides */}
+      {/* Video Slides */}
       {slides.map((slide, index) => (
         <div
           key={slide.id}
           className={`absolute inset-0 transition-opacity duration-1000 ${
-            index === currentSlide ? "opacity-100" : "opacity-0"
+            index === currentSlide ? "opacity-100 z-10" : "opacity-0 z-0"
           }`}
         >
           <div className="absolute inset-0">
-            <Image src={slide.src || "/placeholder.svg"} alt={slide.title} fill priority className="object-cover" />
+            <video
+              ref={(el) => {
+                if (el) videoRefs.current[index] = el
+              }}
+              className="w-full h-full object-cover"
+              playsInline
+              muted
+              loop
+              preload="auto"
+              poster={slide.poster}
+            >
+              <source src={slide.src} type="video/mp4" />
+              Your browser does not support the video tag.
+            </video>
+            <div className="absolute inset-0 bg-black opacity-50"></div>
           </div>
-          <div className="absolute inset-0 bg-black opacity-50"></div>
         </div>
       ))}
 
       {/* Content */}
-      <div className="absolute inset-0 flex items-center justify-center z-10">
+      <div className="absolute inset-0 flex items-center justify-center z-20">
         <div className="container mx-auto px-4 text-center">
           <h1 className="text-4xl md:text-6xl font-bold mb-6 text-white transition-all duration-500 transform">
             {slides[currentSlide].title}
@@ -100,26 +175,32 @@ export default function HeroSection() {
 
       {/* Navigation Arrows */}
       <button
-        onClick={prevSlide}
-        className="absolute left-4 top-1/2 transform -translate-y-1/2 bg-black bg-opacity-30 hover:bg-opacity-50 text-white p-2 rounded-full z-20"
+        onClick={() => {
+          prevSlide()
+          resetInterval()
+        }}
+        className="absolute left-4 top-1/2 transform -translate-y-1/2 bg-black bg-opacity-30 hover:bg-opacity-50 text-white p-2 rounded-full z-30"
         aria-label="Previous slide"
       >
         <ChevronLeft size={24} />
       </button>
       <button
-        onClick={nextSlide}
-        className="absolute right-4 top-1/2 transform -translate-y-1/2 bg-black bg-opacity-30 hover:bg-opacity-50 text-white p-2 rounded-full z-20"
+        onClick={() => {
+          nextSlide()
+          resetInterval()
+        }}
+        className="absolute right-4 top-1/2 transform -translate-y-1/2 bg-black bg-opacity-30 hover:bg-opacity-50 text-white p-2 rounded-full z-30"
         aria-label="Next slide"
       >
         <ChevronRight size={24} />
       </button>
 
       {/* Indicators */}
-      <div className="absolute bottom-10 left-0 right-0 flex justify-center gap-2 z-20">
+      <div className="absolute bottom-10 left-0 right-0 flex justify-center gap-2 z-30">
         {slides.map((_, index) => (
           <button
             key={index}
-            onClick={() => setCurrentSlide(index)}
+            onClick={() => handleSlideChange(index)}
             className={`w-3 h-3 rounded-full ${index === currentSlide ? "bg-white" : "bg-white bg-opacity-50"}`}
             aria-label={`Go to slide ${index + 1}`}
           />

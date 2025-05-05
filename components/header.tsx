@@ -26,9 +26,20 @@ export default function Header() {
   }, [])
 
   return (
-    <header className={`fixed top-0 w-full z-50 transition-all duration-300 ${isScrolled ? "py-3" : "py-6"}`}>
+    <header
+      className={`fixed top-0 w-full z-50 transition-all duration-300 transform -translate-y-4vh ${
+        isScrolled ? "py-3" : "py-6"
+      }`}
+    >
+      {/* Background that fades in when scrolled */}
+      <div
+        className={`absolute inset-0 bg-black/70 backdrop-blur-md transition-opacity duration-300 ${
+          isScrolled ? "opacity-100" : "opacity-0"
+        }`}
+      ></div>
+
       {/* Add extra padding at the top to accommodate the lower logo */}
-      <div className="pt-10">
+      <div className="pt-10 relative z-10">
         <div className="container mx-auto flex items-center justify-between relative">
           {/* Logo positioned absolutely and moved down more */}
           <div className="absolute left-0 top-[100%] transform -translate-y-1/2">
@@ -85,7 +96,7 @@ export default function Header() {
 
       {/* Mobile Navigation (unchanged) */}
       {isOpen && (
-        <div className="md:hidden bg-black/90 backdrop-blur-md">
+        <div className="md:hidden bg-black/90 backdrop-blur-md relative z-20">
           <div className="container mx-auto px-4 py-4 flex flex-col space-y-4">
             <Link href="#about" className="text-white hover:text-white/80 font-medium" onClick={() => setIsOpen(false)}>
               About
