@@ -67,7 +67,11 @@ export default function HeroSection() {
           poster="/images/heroSection1.png"
           crossOrigin="anonymous"
         >
-          <source src="/videos/drone-mountain.mp4" type="video/mp4" />
+          {/* Using direct Vercel Blob URL instead of relative path */}
+          <source
+            src="https://y7hwwcs24j6bhija.public.blob.vercel-storage.com/droneMountain-zSkhJN5eLSipcne6GzFZkuPnKZycCV.mp4"
+            type="video/mp4"
+          />
         </video>
       </div>
 
