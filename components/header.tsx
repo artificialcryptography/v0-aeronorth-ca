@@ -38,9 +38,9 @@ export default function Header() {
       <div className="pt-10 relative z-10">
         <div className="container mx-auto flex items-center justify-between relative">
           {/* Logo positioned absolutely and moved down more */}
-          <div className="absolute left-0 top-[100%] transform -translate-y-1/2">
+          <div className="absolute left-0 top-[50%] transform -translate-y-1/2">
             <Link href="/" className="flex items-center">
-              <div className="relative h-48 w-[30rem]">
+              <div className="relative h-24 w-[15rem]">
                 <Image
                   src="/images/aeronorth-logo.svg"
                   alt="Aeronorth Logo"
