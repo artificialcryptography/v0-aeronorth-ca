@@ -87,8 +87,8 @@ export default function ServicesSection() {
           {services.map((service) => (
             <TabsContent key={service.id} value={service.id}>
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-                <Card className="bg-black bg-opacity-70 backdrop-blur-sm overflow-hidden border border-white/20">
-                  <div className="relative h-[300px]">
+                <Card className="overflow-hidden border border-white/20 p-0">
+                  <div className="relative h-full w-full aspect-[16/9]">
                     <Image
                       src={
                         service.id === "mapping" || service.id === "volumetrics"
@@ -98,8 +98,8 @@ export default function ServicesSection() {
                       alt={service.title}
                       fill
                       className="object-cover"
+                      sizes="(max-width: 1024px) 100vw, 50vw"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-slate-900/70 to-transparent"></div>
                   </div>
                 </Card>
 
