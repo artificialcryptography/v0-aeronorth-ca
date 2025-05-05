@@ -1,157 +1,86 @@
 "use client"
 
-import { useState, useEffect, useRef } from "react"
-import { ChevronLeft, ChevronRight } from "lucide-react"
+import { useEffect, useRef } from "react"
 import Link from "next/link"
+import Image from "next/image"
 import { Button } from "@/components/ui/button"
 
-interface Slide {
-  id: number
-  type: "image" | "video"
-  src: string
-  title: string
-  description: string
-  poster: string
-}
-
 export default function HeroSection() {
-  const slides: Slide[] = [
-    {
-      id: 1,
-      type: "video",
-      src: "/videos/drone-mountain.mp4",
-      title: "Aerial Excellence",
-      description: "Precision drone surveys for construction and resource management",
-      poster: "/images/drone-hero.jpg",
-    },
-    {
-      id: 2,
-      type: "video",
-      src: "/videos/drone-cliff.mp4",
-      title: "Advanced Mapping",
-      description: "High-resolution aerial mapping and 3D modeling",
-      poster: "/images/forest-road.jpg",
-    },
-    {
-      id: 3,
-      type: "video",
-      src: "/videos/drone-waterfall.mp4",
-      title: "Environmental Insights",
-      description: "Specialized imaging for environmental monitoring and assessment",
-      poster: "/images/forest-clearing.jpg",
-    },
-  ]
+  const videoRef = useRef<HTMLVideoElement | null>(null)
+  const hasAttemptedLoad = useRef(false)
 
-  const [currentSlide, setCurrentSlide] = useState(0)
-  const videoRefs = useRef<HTMLVideoElement[]>([])
-  const intervalRef = useRef<NodeJS.Timeout | null>(null)
-
-  const nextSlide = () => {
-    setCurrentSlide((prev) => (prev === slides.length - 1 ? 0 : prev + 1))
-  }
-
-  const prevSlide = () => {
-    setCurrentSlide((prev) => (prev === 0 ? slides.length - 1 : prev - 1))
-  }
-
-  // Reset and restart the auto-advance timer when manually changing slides
-  const resetInterval = () => {
-    if (intervalRef.current) {
-      clearInterval(intervalRef.current)
+  // Setup smooth looping for the video
+  const setupSmoothLooping = (video: HTMLVideoElement) => {
+    const handleTimeUpdate = () => {
+      // If we're near the end of the video (within 0.2 seconds)
+      if (video.duration > 0 && video.currentTime > video.duration - 0.2) {
+        // Reset to beginning with a small offset to prevent visible jump
+        video.currentTime = 0.01
+      }
     }
 
-    intervalRef.current = setInterval(() => {
-      nextSlide()
-    }, 12000)
+    video.addEventListener("timeupdate", handleTimeUpdate)
+    return () => video.removeEventListener("timeupdate", handleTimeUpdate)
   }
 
-  // Handle manual slide navigation
-  const handleSlideChange = (index: number) => {
-    setCurrentSlide(index)
-    resetInterval()
-  }
-
-  // Handle video playback when slide changes
+  // Initialize video once on component mount
   useEffect(() => {
-    // Pause all videos
-    videoRefs.current.forEach((video) => {
-      if (video) {
-        video.pause()
-      }
+    if (hasAttemptedLoad.current || !videoRef.current) return
+    hasAttemptedLoad.current = true
+
+    const video = videoRef.current
+    video.muted = true
+    video.playsInline = true
+    video.loop = true
+    video.preload = "auto"
+
+    const cleanup = setupSmoothLooping(video)
+    video.play().catch(() => {
+      // Silently handle errors - the background image will show
     })
 
-    // Play the current video if it exists
-    const currentVideo = videoRefs.current[currentSlide]
-    if (currentVideo) {
-      // Reset to beginning
-      currentVideo.currentTime = 0
-
-      // Play with a slight delay to ensure DOM is ready
-      setTimeout(() => {
-        const playPromise = currentVideo.play()
-
-        if (playPromise !== undefined) {
-          playPromise.catch(() => {
-            // Silent catch for autoplay restrictions
-            console.log("Autoplay prevented by browser. User interaction required.")
-          })
-        }
-      }, 50)
-    }
-  }, [currentSlide])
-
-  // Auto-advance slides
-  useEffect(() => {
-    // Initialize the interval
-    intervalRef.current = setInterval(() => {
-      nextSlide()
-    }, 12000)
-
-    // Cleanup on unmount
-    return () => {
-      if (intervalRef.current) {
-        clearInterval(intervalRef.current)
-      }
-    }
+    return cleanup
   }, [])
 
   return (
     <div className="relative w-full h-screen overflow-hidden">
-      {/* Video Slides */}
-      {slides.map((slide, index) => (
-        <div
-          key={slide.id}
-          className={`absolute inset-0 transition-opacity duration-1000 ${
-            index === currentSlide ? "opacity-100 z-10" : "opacity-0 z-0"
-          }`}
+      {/* Background Image (fallback) */}
+      <div className="absolute inset-0">
+        <Image
+          src="/images/heroSection1.png"
+          alt="Aerial view of mountains"
+          fill
+          priority
+          className="object-cover"
+          sizes="100vw"
+        />
+      </div>
+
+      {/* Video Element */}
+      <div className="absolute inset-0">
+        <video
+          ref={videoRef}
+          className="w-full h-full object-cover"
+          muted
+          playsInline
+          loop
+          poster="/images/heroSection1.png"
+          crossOrigin="anonymous"
         >
-          <div className="absolute inset-0">
-            <video
-              ref={(el) => {
-                if (el) videoRefs.current[index] = el
-              }}
-              className="w-full h-full object-cover"
-              playsInline
-              muted
-              loop
-              preload="auto"
-              poster={slide.poster}
-            >
-              <source src={slide.src} type="video/mp4" />
-              Your browser does not support the video tag.
-            </video>
-            <div className="absolute inset-0 bg-black opacity-50"></div>
-          </div>
-        </div>
-      ))}
+          <source src="/videos/drone-mountain.mp4" type="video/mp4" />
+        </video>
+      </div>
+
+      {/* Overlay for text readability */}
+      <div className="absolute inset-0 bg-black opacity-50"></div>
 
       {/* Content */}
       <div className="absolute inset-0 flex items-center justify-center z-20">
         <div className="container mx-auto px-4 text-center">
-          <h1 className="text-4xl md:text-6xl font-bold mb-6 text-white transition-all duration-500 transform">
-            {slides[currentSlide].title}
-          </h1>
-          <p className="text-xl md:text-2xl mb-8 max-w-3xl mx-auto text-white">{slides[currentSlide].description}</p>
+          <h1 className="text-4xl md:text-6xl font-bold mb-6 text-white">Aerial Excellence</h1>
+          <p className="text-xl md:text-2xl mb-8 max-w-3xl mx-auto text-white">
+            Precision drone surveys for construction and resource management
+          </p>
           <div className="flex flex-col sm:flex-row justify-center gap-4">
             <Link href="#services">
               <Button
@@ -171,40 +100,6 @@ export default function HeroSection() {
             </Link>
           </div>
         </div>
-      </div>
-
-      {/* Navigation Arrows */}
-      <button
-        onClick={() => {
-          prevSlide()
-          resetInterval()
-        }}
-        className="absolute left-4 top-1/2 transform -translate-y-1/2 bg-black bg-opacity-30 hover:bg-opacity-50 text-white p-2 rounded-full z-30"
-        aria-label="Previous slide"
-      >
-        <ChevronLeft size={24} />
-      </button>
-      <button
-        onClick={() => {
-          nextSlide()
-          resetInterval()
-        }}
-        className="absolute right-4 top-1/2 transform -translate-y-1/2 bg-black bg-opacity-30 hover:bg-opacity-50 text-white p-2 rounded-full z-30"
-        aria-label="Next slide"
-      >
-        <ChevronRight size={24} />
-      </button>
-
-      {/* Indicators */}
-      <div className="absolute bottom-10 left-0 right-0 flex justify-center gap-2 z-30">
-        {slides.map((_, index) => (
-          <button
-            key={index}
-            onClick={() => handleSlideChange(index)}
-            className={`w-3 h-3 rounded-full ${index === currentSlide ? "bg-white" : "bg-white bg-opacity-50"}`}
-            aria-label={`Go to slide ${index + 1}`}
-          />
-        ))}
       </div>
     </div>
   )

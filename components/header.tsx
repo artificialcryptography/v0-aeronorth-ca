@@ -12,11 +12,7 @@ export default function Header() {
 
   useEffect(() => {
     const handleScroll = () => {
-      if (window.scrollY > 10) {
-        setIsScrolled(true)
-      } else {
-        setIsScrolled(false)
-      }
+      setIsScrolled(window.scrollY > 10)
     }
 
     window.addEventListener("scroll", handleScroll)
@@ -94,7 +90,7 @@ export default function Header() {
         </div>
       </div>
 
-      {/* Mobile Navigation (unchanged) */}
+      {/* Mobile Navigation */}
       {isOpen && (
         <div className="md:hidden bg-black/90 backdrop-blur-md relative z-20">
           <div className="container mx-auto px-4 py-4 flex flex-col space-y-4">
