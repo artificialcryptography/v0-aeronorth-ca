@@ -1,7 +1,6 @@
 "use client"
 
 import { useState } from "react"
-import Image from "next/image"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import {
@@ -16,69 +15,256 @@ import {
 export default function ProjectsSection() {
   const [filter, setFilter] = useState("all")
 
-  const projects = [
-    {
-      id: 1,
-      title: "Highway Construction Monitoring",
-      category: "construction",
-      image: "/images/constructionDrone.jpg",
-      description:
-        "Biweekly drone surveys to monitor progress and calculate earthwork volumes for a major highway expansion project.",
-      client: "Provincial Department of Transportation",
-      location: "British Columbia, Canada",
-    },
-    {
-      id: 2,
-      title: "Solar Farm Inspection",
-      category: "inspection",
-      image: "/images/electrical-power-lines.jpg",
-      description:
-        "Thermal imaging inspection of a 50MW solar farm to identify faulty panels and optimize energy production.",
-      client: "Renewable Energy Partners",
-      location: "Alberta, Canada",
-    },
-    {
-      id: 3,
-      title: "Forest Health Assessment",
-      category: "environmental",
-      image: "/images/droneForest.jpg",
-      description:
-        "Multispectral imaging to assess forest health and identify areas affected by pine beetle infestation.",
-      client: "Provincial Forest Service",
-      location: "British Columbia, Canada",
-    },
-    {
-      id: 4,
-      title: "Quarry Volumetric Analysis",
-      category: "mining",
-      image: "/images/copperMine.jpg",
-      description:
-        "Monthly volumetric surveys to track material extraction and inventory management at a limestone quarry.",
-      client: "Global Aggregates Inc.",
-      location: "Saskatchewan, Canada",
-    },
-    {
-      id: 5,
-      title: "Coastal Erosion Monitoring",
-      category: "environmental",
-      image: "/images/droneForest.jpg",
-      description: "Quarterly surveys to monitor coastal erosion and support shoreline management planning.",
-      client: "Coastal Conservation Authority",
-      location: "British Columbia, Canada",
-    },
-    {
-      id: 6,
-      title: "Urban Development Mapping",
-      category: "construction",
-      image: "/images/constructionDrone.jpg",
-      description:
-        "Comprehensive mapping of a 200-acre urban development project to support planning and construction.",
-      client: "Metropolitan Development Group",
-      location: "Manitoba, Canada",
-    },
-  ]
+  const projects = {
+    // Construction Projects (6)
+    construction: [
+      {
+        id: 1,
+        title: "Highway Construction Monitoring",
+        image: "/constructionThumb1.png",
+        description:
+          "Biweekly drone surveys to monitor progress and calculate earthwork volumes for a major highway expansion project.",
+        client: "Provincial Department of Transportation",
+        location: "British Columbia, Canada",
+      },
+      {
+        id: 2,
+        title: "Urban Development Mapping",
+        image: "/constructionThumb2.png",
+        description:
+          "Comprehensive mapping of a 200-acre urban development project to support planning and construction.",
+        client: "Metropolitan Development Group",
+        location: "Manitoba, Canada",
+      },
+      {
+        id: 3,
+        title: "Commercial Complex Construction",
+        image: "/constructionThumb3.png",
+        description:
+          "Weekly progress monitoring and volumetric analysis for a major commercial complex with multiple buildings.",
+        client: "Northland Developers",
+        location: "Alberta, Canada",
+      },
+      {
+        id: 4,
+        title: "Bridge Construction Monitoring",
+        image: "/constructionThumb4.png",
+        description:
+          "Detailed monitoring of structural elements and progress tracking for a major river crossing project.",
+        client: "National Infrastructure Authority",
+        location: "Saskatchewan, Canada",
+      },
+      {
+        id: 5,
+        title: "Residential Development",
+        image: "/constructionThumb5.png",
+        description: "Comprehensive site surveys and progress documentation for a 150-unit residential development.",
+        client: "Horizon Housing",
+        location: "British Columbia, Canada",
+      },
+      {
+        id: 6,
+        title: "Industrial Park Expansion",
+        image: "/constructionThumb6.png",
+        description: "Site preparation monitoring and earthwork calculations for a 50-acre industrial park expansion.",
+        client: "Western Industrial Group",
+        location: "Manitoba, Canada",
+      },
+    ],
 
-  const filteredProjects = filter === "all" ? projects : projects.filter((project) => project.category === filter)
+    // Environmental Projects (6)
+    environmental: [
+      {
+        id: 7,
+        title: "Forest Health Assessment",
+        image: "/environmentalThumb1.png",
+        description:
+          "Multispectral imaging to assess forest health and identify areas affected by pine beetle infestation.",
+        client: "Provincial Forest Service",
+        location: "British Columbia, Canada",
+      },
+      {
+        id: 8,
+        title: "Coastal Erosion Monitoring",
+        image: "/environmentalThumb2.png",
+        description: "Quarterly surveys to monitor coastal erosion and support shoreline management planning.",
+        client: "Coastal Conservation Authority",
+        location: "British Columbia, Canada",
+      },
+      {
+        id: 9,
+        title: "Wetland Restoration Monitoring",
+        image: "/environmentalThumb3.png",
+        description:
+          "Multispectral analysis of vegetation health and water levels in a major wetland restoration project.",
+        client: "Environmental Restoration Trust",
+        location: "Alberta, Canada",
+      },
+      {
+        id: 10,
+        title: "Wildlife Habitat Mapping",
+        image: "/environmentalThumb4.png",
+        description: "Comprehensive mapping of critical wildlife habitats to support conservation planning efforts.",
+        client: "Wildlife Conservation Society",
+        location: "Yukon Territory, Canada",
+      },
+      {
+        id: 11,
+        title: "River Basin Analysis",
+        image: "/environmentalThumb5.png",
+        description:
+          "Detailed topographic and vegetation mapping of a major river basin for flood management planning.",
+        client: "Regional Water Authority",
+        location: "Manitoba, Canada",
+      },
+      {
+        id: 12,
+        title: "Reforestation Monitoring",
+        image: "/environmentalThumb6.png",
+        description: "Periodic assessment of tree growth and health in a large-scale reforestation project.",
+        client: "Sustainable Forestry Initiative",
+        location: "British Columbia, Canada",
+      },
+    ],
+
+    // Mining Projects (6)
+    mining: [
+      {
+        id: 13,
+        title: "Quarry Volumetric Analysis",
+        image: "/miningThumb1.png",
+        description:
+          "Monthly volumetric surveys to track material extraction and inventory management at a limestone quarry.",
+        client: "Global Aggregates Inc.",
+        location: "Saskatchewan, Canada",
+      },
+      {
+        id: 14,
+        title: "Open Pit Mine Monitoring",
+        image: "/miningThumb2.png",
+        description: "Weekly surveys to track excavation progress and calculate ore extraction volumes.",
+        client: "Northern Mining Corporation",
+        location: "Northwest Territories, Canada",
+      },
+      {
+        id: 15,
+        title: "Tailings Dam Inspection",
+        image: "/miningThumb3.png",
+        description:
+          "Regular monitoring of tailings dam integrity and volume calculations for environmental compliance.",
+        client: "Pacific Minerals Ltd.",
+        location: "British Columbia, Canada",
+      },
+      {
+        id: 16,
+        title: "Mine Reclamation Project",
+        image: "/miningThumb4.png",
+        description:
+          "Tracking progress of environmental restoration at a former mining site with before/after comparisons.",
+        client: "Resource Restoration Group",
+        location: "Alberta, Canada",
+      },
+      {
+        id: 17,
+        title: "Gravel Pit Inventory",
+        image: "/miningThumb5.png",
+        description: "Quarterly volumetric surveys of multiple gravel pits for accurate inventory management.",
+        client: "Regional Construction Materials",
+        location: "Manitoba, Canada",
+      },
+      {
+        id: 18,
+        title: "Gold Mine Expansion",
+        image: "/miningThumb6.png",
+        description: "Site preparation monitoring and earthwork calculations for a major gold mine expansion project.",
+        client: "Northern Gold Explorations",
+        location: "Yukon Territory, Canada",
+      },
+    ],
+
+    // Inspection Projects (6)
+    inspection: [
+      {
+        id: 19,
+        title: "Solar Farm Inspection",
+        image: "/inspectionThumb1.png",
+        description:
+          "Thermal imaging inspection of a 50MW solar farm to identify faulty panels and optimize energy production.",
+        client: "Renewable Energy Partners",
+        location: "Alberta, Canada",
+      },
+      {
+        id: 20,
+        title: "Bridge Infrastructure Assessment",
+        image: "/inspectionThumb2.png",
+        description:
+          "Detailed visual inspection of bridge structures to identify maintenance needs and structural issues.",
+        client: "Provincial Transportation Department",
+        location: "British Columbia, Canada",
+      },
+      {
+        id: 21,
+        title: "Power Line Corridor Inspection",
+        image: "/inspectionThumb3.png",
+        description:
+          "Comprehensive inspection of 200km of power line corridors to identify vegetation encroachment and infrastructure damage.",
+        client: "Northern Power Distribution",
+        location: "Saskatchewan, Canada",
+      },
+      {
+        id: 22,
+        title: "Building Envelope Assessment",
+        image: "/inspectionThumb4.png",
+        description:
+          "Thermal and visual inspection of commercial building envelopes to identify energy loss and maintenance issues.",
+        client: "Urban Property Management",
+        location: "Manitoba, Canada",
+      },
+      {
+        id: 23,
+        title: "Wind Turbine Inspection",
+        image: "/inspectionThumb5.png",
+        description:
+          "Detailed blade and structure inspection of a 25-turbine wind farm to identify maintenance requirements.",
+        client: "Prairie Wind Energy",
+        location: "Alberta, Canada",
+      },
+      {
+        id: 24,
+        title: "Dam Safety Inspection",
+        image: "/inspectionThumb6.png",
+        description: "Comprehensive visual assessment of dam structures and spillways for safety compliance reporting.",
+        client: "Regional Water Management Authority",
+        location: "British Columbia, Canada",
+      },
+    ],
+  }
+
+  // For the "all" filter, select 6 random projects from all categories
+  const getRandomProjects = () => {
+    const allCategoryProjects = [
+      ...projects.construction,
+      ...projects.environmental,
+      ...projects.mining,
+      ...projects.inspection,
+    ]
+
+    // Shuffle the array
+    const shuffled = [...allCategoryProjects].sort(() => 0.5 - Math.random())
+
+    // Take the first 6 items
+    return shuffled.slice(0, 6)
+  }
+
+  // Get the projects to display based on the current filter
+  const getProjectsToDisplay = () => {
+    if (filter === "all") {
+      return getRandomProjects()
+    }
+    return projects[filter] || []
+  }
+
+  const displayedProjects = getProjectsToDisplay()
 
   return (
     <div id="projects" className="py-24 w-full">
@@ -130,20 +316,26 @@ export default function ProjectsSection() {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {filteredProjects.map((project) => (
+          {displayedProjects.map((project) => (
             <Dialog key={project.id}>
               <DialogTrigger asChild>
                 <Card className="bg-black bg-opacity-70 backdrop-blur-sm overflow-hidden cursor-pointer hover:shadow-lg transition-shadow duration-300 border border-white/20">
                   <div className="relative h-64 w-full">
-                    <Image
+                    <img
                       src={project.image || "/placeholder.svg"}
                       alt={project.title}
-                      fill
-                      className="object-cover"
+                      className="absolute inset-0 w-full h-full object-cover"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-slate-900/70 to-transparent"></div>
                     <div className="absolute top-4 right-4 bg-black/70 backdrop-blur-sm text-white text-xs font-bold px-3 py-1 rounded-full border border-white/30">
-                      {project.category.charAt(0).toUpperCase() + project.category.slice(1)}
+                      {filter === "all"
+                        ? project.id <= 6
+                          ? "Construction"
+                          : project.id <= 12
+                            ? "Environmental"
+                            : project.id <= 18
+                              ? "Mining"
+                              : "Inspection"
+                        : filter.charAt(0).toUpperCase() + filter.slice(1)}
                     </div>
                   </div>
                   <CardContent className="p-6">
@@ -156,15 +348,23 @@ export default function ProjectsSection() {
                 <DialogHeader>
                   <DialogTitle className="text-2xl font-bold text-white">{project.title}</DialogTitle>
                   <DialogDescription className="text-white/70">
-                    {project.category.charAt(0).toUpperCase() + project.category.slice(1)} Project
+                    {filter === "all"
+                      ? project.id <= 6
+                        ? "Construction"
+                        : project.id <= 12
+                          ? "Environmental"
+                          : project.id <= 18
+                            ? "Mining"
+                            : "Inspection"
+                      : filter.charAt(0).toUpperCase() + filter.slice(1)}{" "}
+                    Project
                   </DialogDescription>
                 </DialogHeader>
                 <div className="relative h-64 w-full my-4">
-                  <Image
+                  <img
                     src={project.image || "/placeholder.svg"}
                     alt={project.title}
-                    fill
-                    className="object-cover rounded-lg"
+                    className="w-full h-full object-cover rounded-lg"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-slate-900/50 to-transparent rounded-lg"></div>
                 </div>
